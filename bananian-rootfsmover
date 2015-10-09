@@ -106,17 +106,19 @@ changeUEnv() {
 	
 	mkdir /tmp/tmpboot
 	mount /dev/mmcblk0p1 /tmp/tmpboot
-	mv /tmp/tmpboot/uEnv.txt /tmp/tmpboot/uEnv.r2h
+	mv /tmp/tmpboot/boot.cmd /tmp/tmpboot/boot.cmd.bak
 	
 	if [ $1 == "1" ]; then
-		cat /tmp/tmpboot/uEnv.r2h | sed -e 's/\/dev\/mmcblk0p2/\${TARDEV}2/' >/tmp/tmpboot/uEnv.txt
+		cat /tmp/tmpboot/boot.cmd.bak | sed -e 's/\/dev\/mmcblk0p2/\${TARDEV}2/' >/tmp/tmpboot/boot.cmd
 	fi
 	
 	if [ $1 == "0" ]; then
-		cat /tmp/tmpboot/uEnv.r2h | sed -e 's/\/dev\/mmcblk0p2/\${TARDEV}1/' >/tmp/tmpboot/uEnv.txt
+		cat /tmp/tmpboot/boot.cmd.bak | sed -e 's/\/dev\/mmcblk0p2/\${TARDEV}1/' >/tmp/tmpboot/boot.cmd
 	fi
 	
-	cp /tmp/tmpboot/uEnv.r2h /tmp/tmpboot/uEnv.txt
+	#cp /tmp/tmpboot/uEnv.r2h /tmp/tmpboot/uEnv.txt
+	sudo apt-get install -y u-boot-tools
+	mkimage -C none -A arm -T script -d /tmp/tmpboot/boot.cmd /tmp/tmpboot/boot.scr
 	umount /tmp/tmpboot
 	rmdir /tmp/tmpboot
 
