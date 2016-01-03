@@ -116,8 +116,6 @@ changeUEnv() {
 		cat /tmp/tmpboot/boot.cmd.bak | sed -e 's/\/dev\/mmcblk0p2/\${TARDEV}1/' >/tmp/tmpboot/boot.cmd
 	fi
 	
-	#cp /tmp/tmpboot/uEnv.r2h /tmp/tmpboot/uEnv.txt
-	sudo apt-get install -y u-boot-tools
 	mkimage -C none -A arm -T script -d /tmp/tmpboot/boot.cmd /tmp/tmpboot/boot.scr
 	umount /tmp/tmpboot
 	rmdir /tmp/tmpboot
