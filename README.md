@@ -3,9 +3,10 @@
 dialog-based tool to move Banana Pi's rootfs from SD to SATA/USB 
 --
 
-Mainly developed for Bananian it should run on other Distrubitions, too.
+Mainly developed for Bananian.
 
 Programs that have to be installed:
+ + u-boot-tools
  + dialog
  + parted
  + lsblk
